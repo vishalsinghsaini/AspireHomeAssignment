@@ -1,17 +1,32 @@
 import React from 'react';
 import {
-  Text,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
   View,
 } from 'react-native';
+import { ThemeProps } from '@theme/theme';
+import { navigations } from '@config/app-navigation/constant';
+import { AppNavigation } from '@config/app-navigation';
+import { useAppTheme } from '@app-hooks/use-app-theme';
 
-function App() {
+export default function AppComponent(): React.JSX.Element {
+  const { theme } = useAppTheme();
+  const styles = createStyleSheet(theme);
 
   return (
-    <View>
-      <Text style={{ marginTop: 50 }}>hi</Text>
+    <View style={styles.container}>
+      <SafeAreaView />
+      <StatusBar barStyle={'dark-content'} />
+      <AppNavigation initialScreen={navigations.HOMESTACK} />
     </View>
   );
 }
 
-
-export default App;
+const createStyleSheet = (theme: ThemeProps) =>
+  StyleSheet.create({
+    container: {
+      backgroundColor: theme.colors.white,
+      flex: 1
+    },
+  });
