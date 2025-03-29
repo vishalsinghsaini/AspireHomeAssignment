@@ -3,6 +3,7 @@ export const colors = {
   black: '#000000',
   borderColor: '#E6E6E6',
   primaryColor: '#0C365A',
+  primaryGreen: '#01D167',
   errorColor: '#EB5E5F',
   fontColor: '#4A4848',
   fontColor2: '#7A7D7E',

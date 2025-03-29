@@ -21,12 +21,21 @@ export interface FcmTokenProps {
   token: string,
 }
 
-export const fetchCardData = async (props: GenerateOtpProps) => {
+export const fetchCardData = async () => {
+  const data = await API.mockService.get('/90c8887e-1676-40e0-b3f8-4d11298d03a4');
+  try {
+    const response = getApiResponse(data);
+    return response;
+  } catch {
+    return null
+  }
+};
 
+export const createNewCard = async (props: GenerateOtpProps) => {
   // <-- below code is when dev api's are given -->
   const { bodyParams } = props || {};
   const endPoint = apiConstants.cards;
-  const data = await API.userService.post(endPoint, bodyParams);  // and change api method accordingly
+  const data = await API.mockService.post(endPoint, bodyParams);  // and change api method accordingly
   // <-- above code is when dev api's are given -->
 
   try {

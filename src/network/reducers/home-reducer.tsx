@@ -1,7 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface UserDataProps {
-
+  availableBalance: number,
+  name: string,
+  cardNumber: string,
+  cvv: number,
+  cardValidThru: number,
+  type: string,
+  spendingLimit: number,
+  spendingLimitUsed: number,
+  cardFreeze: false
 }
 export interface HomeState {
   userData: UserDataProps | any;

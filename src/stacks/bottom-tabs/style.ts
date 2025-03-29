@@ -41,6 +41,7 @@ export const createStyleSheet = (theme: ThemeProps) => StyleSheet.create({
         fontSize: theme.fontSize.font10,
         lineHeight: lineHeightScale(15),
         color: '#01D167',
+        marginBottom: normalizedHeight(4)
     },
     color: {
         color: theme.colors.primaryBackgroundColor

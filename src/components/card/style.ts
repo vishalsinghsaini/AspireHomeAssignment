@@ -1,7 +1,7 @@
-import { getBottomPadding } from '@assets/constants';
-import { isAndroid, lineHeightScale, normalizedHeight, normalizedWidth, moderateScale } from '@theme/device/normalize';
+import { normalizedHeight, normalizedWidth, moderateScale } from '@theme/device/normalize';
 import { ThemeProps } from '@theme/theme';
 import { StyleSheet } from 'react-native';
+import { CARD_HEIGHT, CARD_WIDTH } from '.';
 
 export const createStyleSheet = (theme: ThemeProps) => StyleSheet.create({
     iconImage: {
@@ -15,13 +15,13 @@ export const createStyleSheet = (theme: ThemeProps) => StyleSheet.create({
         borderRadius: moderateScale(8),
         marginHorizontal: normalizedWidth(2),
         marginVertical: normalizedHeight(2),
-        backgroundColor: 'white',
+        backgroundColor: theme.colors.white,
     },
     shadow: {
         shadowColor: '#AAA',
         shadowOffset: {
-            width: normalizedWidth(5),
-            height: normalizedHeight(5),
+            width: normalizedWidth(2),
+            height: normalizedHeight(2),
         },
         shadowOpacity: 0.5,
         shadowRadius: 3.5,
@@ -31,7 +31,7 @@ export const createStyleSheet = (theme: ThemeProps) => StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'white',
+        backgroundColor: theme.colors.white,
         alignSelf: 'flex-end',
         width: normalizedWidth(151),
         height: normalizedHeight(45),
@@ -39,9 +39,27 @@ export const createStyleSheet = (theme: ThemeProps) => StyleSheet.create({
         borderTopLeftRadius: moderateScale(6),
         paddingBottom: normalizedHeight(16)
     },
+    ml20: {
+        marginLeft: normalizedWidth(24)
+    },
     hideText: {
         fontSize: theme.fontSize.font12,
         fontWeight: 600,
+        color: theme.colors.primaryGreen
+    },
+    cardContainer: {
+        backgroundColor: theme.colors.primaryGreen,
+        width: CARD_WIDTH,
+        height: CARD_HEIGHT,
+        borderRadius: 10,
+        marginTop: -normalizedHeight(16),
+        padding: 0,
+        zIndex: 9999
+    },
+    cardNumber: {
+        color: theme.colors.white,
+        fontWeight: '500',
+        fontSize: theme.fontSize.font14,
     }
 })
 

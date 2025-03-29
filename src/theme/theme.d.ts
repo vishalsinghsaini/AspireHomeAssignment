@@ -20,6 +20,7 @@ export interface ThemeProps {
     white: string;
     black: string;
     primaryColor: string;
+    primaryGreen: string;
     whiteShaded: string;
     teal: string;
     errorColor: string;

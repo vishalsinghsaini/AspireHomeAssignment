@@ -39,8 +39,6 @@ export const createStyleSheet = (theme: ThemeProps) => StyleSheet.create({
     },
     headerContainer: {
         alignItems: 'center',
-        borderWidth: 1,
-        borderColor: 'red'
     },
     headerHeight: {
         backgroundColor: 'transparent',

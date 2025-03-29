@@ -56,11 +56,7 @@ const useInterceptor = (ref: AxiosInstance) => {
 
             if (status !== 200 && status !== 304) {
                 console.log('res=>', 'something went wrong')
-                // store.dispatch(onSetError({ isError: true, message: 'Something went wrong!' }));
             }
-            // if (status === 401) {
-            //     logoutUser(nav as NavigationContainerRef);
-            // }
 
             return Promise.reject(error?.response);
         },
@@ -69,16 +65,6 @@ const useInterceptor = (ref: AxiosInstance) => {
 
 class APIService {
     mockService!: AxiosInstance;
-
-    mockService2!: AxiosInstance;
-
-    mockService3!: AxiosInstance;
-
-    mockService4!: AxiosInstance;
-
-    mockService5!: AxiosInstance;
-
-    userService!: AxiosInstance;
 
     constructor() {
         this.initService();

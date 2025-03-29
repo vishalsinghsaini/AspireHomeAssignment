@@ -1,65 +1,60 @@
-import React, { useEffect } from 'react'
-import { StyleSheet, Text, View, Dimensions, Image, TouchableOpacity } from 'react-native'
-import { useDispatch, useSelector, useStore } from 'react-redux';
-import { selectCardCVV, selectCardNumber, selectCardNumberVisible, selectCardValidThru, selectNameOnCard, setCardNumberVisible } from '../store/slices/debitCardSlice';
+import React, { useState } from 'react'
+import { Text, View, Dimensions, Image, TouchableOpacity } from 'react-native'
+import { useSelector } from 'react-redux';
 import { useAppTheme } from '@app-hooks/use-app-theme';
 import { createStyleSheet } from './style';
+import { StoreType } from '@network/reducers/store';
+import { UserDataProps } from '@network/reducers/home-reducer';
+import { normalizedWidth } from '@theme/device/normalize';
 
-const { width, height } = Dimensions.get('screen');
+const { width } = Dimensions.get('screen');
 
-const CARD_WIDTH = (width - 48);  //Ensures that the currency notation and the card's left end align just like the mock up
-const CARD_HEIGHT = 0.6 * CARD_WIDTH; // Aspect Ratio of the card is 0.6 [h/w]
-
-
+export const CARD_WIDTH = (width - 48);  //Ensures that the currency notation and the card's left end align just like the mock up
+export const CARD_HEIGHT = 0.6 * CARD_WIDTH; // Aspect Ratio of the card is 0.6 [h/w]
 
 const Card = () => {
     const { theme } = useAppTheme();
+    const [showCardDetails, setShowCardDetails] = useState(true)
     const styles = createStyleSheet(theme);
-    // const store = useStore();
-    // let state = store.getState()
-    // const dispatch = useDispatch();
-    let cardDetailsDisplayed = true;//selectCardNumberVisible;
-    let cardNumber = "5647341124132020";//selectCardNumber;
     let cardValidThru = "12/20";//selectCardValidThru;
-    let cardCVV = 456;//selectCardCVV;
     let nameOnCard = "Mark Henry";//selectNameOnCard;
-    let appColorSolid = '#01D167'
+    const { userData }: { userData: UserDataProps } = useSelector((state: StoreType) => state.homeReducer);
 
-    const cardNumberDisplayRender = (cardDisplayFlag: boolean, cardNumber: string) => {
-        if (!(cardDisplayFlag != null && cardNumber != null)) {
-            return (<View style={{ display: 'none' }} />);
+    const cardNumberDisplayRender = (cardDisplayFlag: boolean) => {
+        if (!(cardDisplayFlag != null && userData?.cardNumber != null)) {
+            return
         }
         if (cardDisplayFlag)
             return (
                 <View style={{ flexDirection: 'row' }}>
-                    <Text style={{ color: 'white', fontWeight: '500', fontSize: 16, width: 50, letterSpacing: 2 }}>{cardNumber?.substring(0, 4)}</Text>
-                    <Text style={{ color: 'white', fontWeight: '500', fontSize: 16, marginLeft: 20, width: 50, letterSpacing: 2 }}>{cardNumber?.substring(4, 8)}</Text>
-                    <Text style={{ color: 'white', fontWeight: '500', fontSize: 16, marginLeft: 20, width: 50, letterSpacing: 2 }}>{cardNumber?.substring(8, 12)}</Text>
-                    <Text style={{ color: 'white', fontWeight: '500', fontSize: 16, marginLeft: 20, width: 50, letterSpacing: 2 }}>{cardNumber?.substring(12, 16)}</Text>
+                    <Text style={styles.cardNumber}>{userData?.cardNumber?.substring(0, 4)}</Text>
+                    <Text style={[styles.cardNumber, styles.ml20]}>{userData?.cardNumber?.substring(4, 8)}</Text>
+                    <Text style={[styles.cardNumber, styles.ml20]}>{userData?.cardNumber?.substring(8, 12)}</Text>
+                    <Text style={[styles.cardNumber, styles.ml20]}>{userData?.cardNumber?.substring(12, 16)}</Text>
                 </View>
             );
         else {
             return (
-                <View style={{ flexDirection: 'row' }}>
-                    <View style={{ marginLeft: -4, flexDirection: 'row', width: 50 }}>
-                        <View style={styles.bullets}></View>
-                        <View style={styles.bullets}></View>
-                        <View style={styles.bullets}></View>
-                        <View style={styles.bullets}></View>
-                    </View>
-                    <View style={{ marginLeft: 20, flexDirection: 'row', width: 50 }}>
-                        <View style={styles.bullets}></View>
-                        <View style={styles.bullets}></View>
-                        <View style={styles.bullets}></View>
-                        <View style={styles.bullets}></View>
-                    </View>
-                    <View style={{ marginLeft: 20, flexDirection: 'row', marginRight: 20, width: 50 }}>
-                        <View style={styles.bullets}></View>
-                        <View style={styles.bullets}></View>
-                        <View style={styles.bullets}></View>
-                        <View style={styles.bullets}></View>
-                    </View>
-                    <Text style={{ color: 'white', fontWeight: '500', fontSize: 16, width: 50, letterSpacing: 2 }}>{cardNumber.substring(12, 16)}</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    {[0, 1, 2].map((index) => (
+                        <View
+                            key={index}
+                            style={{
+                                marginLeft: normalizedWidth(index === 0 ? -4 : 20),
+                                flexDirection: 'row',
+                                marginRight: normalizedWidth(index === 2 ? 20 : 0),
+                            }}
+                        >
+                            {Array(4)
+                                .fill(0)
+                                .map((_, bulletIndex) => (
+                                    <View key={bulletIndex} style={styles.bullets} />
+                                ))}
+                        </View>
+                    ))}
+                    <Text style={styles.cardNumber}>
+                        {userData?.cardNumber?.substring(12, 16)}
+                    </Text>
                 </View>
             );
         }
@@ -69,30 +64,17 @@ const Card = () => {
         <View style={{ backgroundColor: 'transparent', width: CARD_WIDTH, height: CARD_HEIGHT + 32, marginTop: -90 }}>
             {/* A view for the card image : Width is calculated as a percentage of the screen width as per shared design, height is calculated such as to maintain the aspect ratio */}
             <TouchableOpacity style={styles.hideContainer}
-                onPress={() => {
-                    // if(cardDetailsDisplayed){
-                    //     dispatch(setCardNumberVisible({
-                    //         cardNumberVisible: false,
-                    //     }));
-                    //     // forceUpdate();
-                    // }
-                    // else{
-                    //     dispatch(setCardNumberVisible({
-                    //         cardNumberVisible: true,
-                    //     }));
-                    //     // forceUpdate();
-                    // }
-                }}
+                onPress={() => setShowCardDetails(prev => !prev)}
             >
                 {/* A view for the "Show Card Number Button" */}
                 <Image
                     style={styles.iconImage}
-                    source={(cardDetailsDisplayed) ? require("../../assets/images/eyeClosed.png") : require("../../assets/images/eyeOpen.png")}
+                    source={(showCardDetails) ? require("../../assets/images/eyeClosed.png") : require("../../assets/images/eyeOpen.png")}
                     resizeMode='contain'
                 />
-                <Text style={styles.hideText}>{cardDetailsDisplayed ? "Hide card number" : "Show card number"} </Text>
+                <Text style={styles.hideText}>{showCardDetails ? "Hide card number" : "Show card number"} </Text>
             </TouchableOpacity>
-            <View style={{ backgroundColor: appColorSolid, width: CARD_WIDTH, height: CARD_HEIGHT, borderRadius: 10, marginTop: -18, padding: 0, ...styles.shadow, zIndex: 9999 }}>
+            <View style={[styles.cardContainer, styles.shadow]}>
                 {/* A view for the actual card */}
                 <View style={{ marginTop: 24, height: 21, marginRight: 24, alignItems: 'flex-end' }}>
                     {/* View For Top Logo */}
@@ -113,12 +95,12 @@ const Card = () => {
                         {/* View for card number valid thru and cvv */}
                         <View style={{ height: 17, flex: 1 }}>
                             {/* View for Card Number */}
-                            {cardNumberDisplayRender(cardDetailsDisplayed, cardNumber)}
+                            {cardNumberDisplayRender(showCardDetails)}
                         </View>
-                        <View style={{ flexDirection: 'row' }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             {/* View for valid thru and cvv */}
                             <Text style={{ color: 'white', fontWeight: '400', fontSize: 16 }}>Thru: {cardValidThru}</Text>
-                            <Text style={{ color: 'white', fontWeight: '400', fontSize: 15, marginLeft: 10 }}>CVV: {(cardDetailsDisplayed) ? cardCVV : "* * *"}</Text>
+                            <Text style={{ color: 'white', fontWeight: '400', fontSize: 15, marginLeft: 10 }}>CVV: {(showCardDetails) ? userData?.cvv : "* * *"}</Text>
                         </View>
                     </View>
                 </View>

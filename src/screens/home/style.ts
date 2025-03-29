@@ -7,6 +7,9 @@ export const createStyleSheet = (theme: ThemeProps) => StyleSheet.create({
         backgroundColor: '#0C365A',
         flex: 1,
     },
+    pt32: {
+        paddingTop: normalizedHeight(32)
+    },
     title: {
         fontSize: theme.fontSize.font24,
         lineHeight: lineHeightScale(32),

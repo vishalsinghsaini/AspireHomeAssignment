@@ -73,7 +73,7 @@ export const BottomTabs = () => {
                 >
                     {item && <Image
                         style={styles.icon}
-                        source={item.activeImage}
+                        source={item.activeImage as any}
                         resizeMode='contain'
                     />}
                     <Text style={[styles.label, !focused && styles.color]}>
@@ -85,31 +85,28 @@ export const BottomTabs = () => {
     };
 
     return (
-        <>
-            <BottomTabStack.Navigator
-                screenOptions={{
-                    headerShown: false,
-                    tabBarShowLabel: false,
-                    tabBarStyle: styles.tabBarstyle,
-                }}
-                initialRouteName={navigations.HOME}
-            >
-                {TabArr.map((tab, index) => {
-                    return (
-                        <BottomTabStack.Screen
-                            key={index}
-                            name={tab?.route}
-                            component={tab?.component}
-                            options={() => ({
-                                tabBarShowLabel: false,
-                                tabBarButton: (props) => (<TabButton {...props} item={tab} />),
-                            })}
-                        />
-                    );
-                })}
-            </BottomTabStack.Navigator>
-
-        </>
+        <BottomTabStack.Navigator
+            screenOptions={{
+                headerShown: false,
+                tabBarShowLabel: false,
+                tabBarStyle: styles.tabBarstyle,
+            }}
+            initialRouteName={navigations.DEBIT}
+        >
+            {TabArr.map((tab, index) => {
+                return (
+                    <BottomTabStack.Screen
+                        key={index}
+                        name={tab?.route}
+                        component={tab?.component}
+                        options={() => ({
+                            tabBarShowLabel: false,
+                            tabBarButton: (props) => (<TabButton {...props} item={tab} />),
+                        })}
+                    />
+                );
+            })}
+        </BottomTabStack.Navigator>
     );
 };
 
