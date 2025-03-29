@@ -95,6 +95,7 @@ export const BottomTabs = () => {
                     tabBarShowLabel: false,
                     tabBarStyle: styles.tabBarstyle,
                 }}
+                initialRouteName={navigations.DEBIT}
             >
                 {TabArr.map((tab, index) => {
                     return (
