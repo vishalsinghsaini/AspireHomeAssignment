@@ -18,10 +18,10 @@ export interface ThemeProps {
   };
   colors: {
     white: string;
-    whiteShaded: string;
     black: string;
-    teal: string;
     primaryColor: string;
+    whiteShaded: string;
+    teal: string;
     errorColor: string;
     fontColor: string;
     fontColor2: string;

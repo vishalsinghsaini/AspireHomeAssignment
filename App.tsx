@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   SafeAreaView,
-  StatusBar,
   StyleSheet,
   View,
 } from 'react-native';
@@ -16,8 +15,7 @@ export default function AppComponent(): React.JSX.Element {
 
   return (
     <View style={styles.container}>
-      <SafeAreaView style={{ backgroundColor: '#0C365A' }} />
-      <StatusBar barStyle={'dark-content'} />
+      <SafeAreaView style={styles.bgColor} />
       <AppNavigation initialScreen={navigations.HOMESTACK} />
     </View>
   );
@@ -29,4 +27,7 @@ const createStyleSheet = (theme: ThemeProps) =>
       backgroundColor: theme.colors.white,
       flex: 1
     },
+    bgColor: {
+      backgroundColor: theme.colors.primaryColor
+    }
   });

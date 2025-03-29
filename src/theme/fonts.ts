@@ -1,4 +1,4 @@
-import { moderateScale, normalize, normalScale } from './device/normalize';
+import { moderateScale, normalize, normalizedWidth } from './device/normalize';
 
 const size = {
   font7: normalize(7),
@@ -33,16 +33,16 @@ const opacity = {
 };
 
 const borderWidth = {
-  borderWidth0p2: normalScale(0.2),
-  borderWidth0p4: normalScale(0.4),
-  borderWidth0p5: normalScale(0.5),
-  borderWidth0p6: normalScale(0.6),
-  borderWidth0p8: normalScale(0.8),
-  borderWidth1: normalScale(1),
-  borderWidth2: normalScale(2),
-  borderWidth3: normalScale(3),
-  borderWidth1p5: normalScale(1.5),
-  borderWidth10: normalScale(10),
+  borderWidth0p2: normalizedWidth(0.2),
+  borderWidth0p4: normalizedWidth(0.4),
+  borderWidth0p5: normalizedWidth(0.5),
+  borderWidth0p6: normalizedWidth(0.6),
+  borderWidth0p8: normalizedWidth(0.8),
+  borderWidth1: normalizedWidth(1),
+  borderWidth2: normalizedWidth(2),
+  borderWidth3: normalizedWidth(3),
+  borderWidth1p5: normalizedWidth(1.5),
+  borderWidth10: normalizedWidth(10),
 };
 
 const borderRadius = {

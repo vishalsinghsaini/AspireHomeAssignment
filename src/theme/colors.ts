@@ -2,7 +2,7 @@ export const colors = {
   white: '#FFFFFF',
   black: '#000000',
   borderColor: '#E6E6E6',
-  primaryColor: '#212121',
+  primaryColor: '#0C365A',
   errorColor: '#EB5E5F',
   fontColor: '#4A4848',
   fontColor2: '#7A7D7E',

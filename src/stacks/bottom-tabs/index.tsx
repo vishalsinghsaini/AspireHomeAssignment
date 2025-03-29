@@ -1,12 +1,9 @@
 import { useAppTheme } from "@app-hooks/use-app-theme";
-import { images } from "@assets/images";
 import { navigations } from "@config/app-navigation/constant";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { createStyleSheet } from "./style"
-import DebitCard from "@screens/debit-card";
 import { Home } from "@screens/home";
 
 export interface Obj {
@@ -34,31 +31,31 @@ export const BottomTabs = () => {
         {
             route: navigations.HOME,
             label: "Home",
-            activeImage: '../../assets/images/Home.png',
+            activeImage: require('../../assets/images/Home.png'),
             component: Home,
         },
         {
             route: navigations.DEBIT,
             label: "Debit card",
-            activeImage: '../../assets/images/Home.png',
-            component: DebitCard,
+            activeImage: require('../../assets/images/pay.png'),
+            component: Home,
         },
         {
             route: navigations.PAYMENT,
             label: "Payments",
-            activeImage: '../../assets/images/Home.png',
+            activeImage: require('../../assets/images/Payments.png'),
             component: Home,
         },
         {
             route: navigations.CREDIT,
             label: "Credit",
-            activeImage: '../../assets/images/Home.png',
+            activeImage: require('../../assets/images/Credit.png'),
             component: Home,
         },
         {
             route: navigations.PROFILE,
             label: "Profile",
-            activeImage: '../../assets/images/Home.png',
+            activeImage: require('../../assets/images/Account.png'),
             component: Home,
         },
     ];
@@ -74,11 +71,11 @@ export const BottomTabs = () => {
                     activeOpacity={1}
                     style={styles.image}
                 >
-                    <Image
+                    {item && <Image
                         style={styles.icon}
-                        source={require('../../assets/images/Home.png')}
+                        source={item.activeImage}
                         resizeMode='contain'
-                    />
+                    />}
                     <Text style={[styles.label, !focused && styles.color]}>
                         {item?.label}
                     </Text>
@@ -95,7 +92,7 @@ export const BottomTabs = () => {
                     tabBarShowLabel: false,
                     tabBarStyle: styles.tabBarstyle,
                 }}
-                initialRouteName={navigations.DEBIT}
+                initialRouteName={navigations.HOME}
             >
                 {TabArr.map((tab, index) => {
                     return (
