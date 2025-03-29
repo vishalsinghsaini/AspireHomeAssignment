@@ -16,7 +16,7 @@ export default function AppComponent(): React.JSX.Element {
 
   return (
     <View style={styles.container}>
-      <SafeAreaView />
+      <SafeAreaView style={{ backgroundColor: '#0C365A' }} />
       <StatusBar barStyle={'dark-content'} />
       <AppNavigation initialScreen={navigations.HOMESTACK} />
     </View>

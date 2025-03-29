@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 export const countryCode = '+91';
 export const stretch = 'stretch';
 export const cover = 'cover';
@@ -51,3 +51,10 @@ export const hexToRgbA = (hexCode = '', opacity = 1) => {
 
   return `rgba(${r},${g},${b},${opac})`
 }
+
+export const getBottomPadding = (padding: number) => (Platform.OS === 'ios' ? padding + 40 : padding);
+
+export const getTopPadding = (padding: number) => (Platform.OS === 'android' ? padding + 30 : padding);
+
+export const getPlaformSpecificData = (androidData: number, iosData: number) => (Platform.OS === 'ios' ? iosData : androidData);
+

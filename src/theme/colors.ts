@@ -1,8 +1,7 @@
 export const colors = {
   white: '#FFFFFF',
-  whiteShaded: '#FAFAFA',
   black: '#000000',
-  teal: '#60C3AD',
+  borderColor: '#E6E6E6',
   primaryColor: '#212121',
   errorColor: '#EB5E5F',
   fontColor: '#4A4848',
@@ -48,7 +47,6 @@ export const colors = {
   gradientColorMax2: 'rgba(96, 195, 173, 0.05)',
   radialGradientMin: '#3B4458',
   radialGradientMax: '#212735',
-  borderColor: '#E6E6E6',
   blackOverlay: 'rgba(0, 0, 0, 0.3)',
   borderGreyColor: 'rgba(226, 226, 226, 0.5)',
   statusBarColor: '#FFFFFF',
