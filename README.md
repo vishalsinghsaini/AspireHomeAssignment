@@ -76,6 +76,10 @@ This is one way to run your app — you can also build it directly from Android 
 
 
 
+https://github.com/user-attachments/assets/777fc89c-2177-420a-8fc7-fea2d5ab4823
+
+
+
 **IOS**
 
 
