@@ -9,15 +9,17 @@ import { normalizedWidth } from '@theme/device/normalize';
 
 const { width } = Dimensions.get('screen');
 
-export const CARD_WIDTH = (width - 48);  //Ensures that the currency notation and the card's left end align just like the mock up
+export const CARD_WIDTH = (width - 48);
 export const CARD_HEIGHT = 0.6 * CARD_WIDTH; // Aspect Ratio of the card is 0.6 [h/w]
 
-const Card = () => {
+export interface CardProps {
+    isCardFreezed: boolean
+}
+const Card = (props: CardProps) => {
+    const { isCardFreezed = false } = props
     const { theme } = useAppTheme();
     const [showCardDetails, setShowCardDetails] = useState(true)
     const styles = createStyleSheet(theme);
-    let cardValidThru = "12/20";//selectCardValidThru;
-    let nameOnCard = "Mark Henry";//selectNameOnCard;
     const { userData }: { userData: UserDataProps } = useSelector((state: StoreType) => state.homeReducer);
 
     const cardNumberDisplayRender = (cardDisplayFlag: boolean) => {
@@ -60,9 +62,46 @@ const Card = () => {
         }
     };
 
+    const renderCard = () => {
+        return (
+            <View style={[styles.cardContainer, styles.shadow]}>
+                <View style={styles.logoContainer}>
+                    <Image
+                        style={styles.logo}
+                        source={require("../../assets/images/AspireLogo.png")}
+                        resizeMode='contain'
+                    />
+                </View>
+
+                <View style={styles.card}>
+                    <View style={styles.nameContainer}>
+                        <Text style={styles.name}>{userData?.name}</Text>
+                    </View>
+                    <View style={styles.cardDetails}>
+                        {cardNumberDisplayRender(showCardDetails)}
+                        <View style={styles.rowAlign}>
+                            <Text style={styles.valid}>Thru: {userData?.cardValidThru}</Text>
+                            <Text style={[styles.valid, { marginLeft: normalizedWidth(32) }]}>CVV: {(showCardDetails) ? userData?.cvv : "* * *"}</Text>
+                        </View>
+                    </View>
+
+                    {isCardFreezed && (
+                        <View style={styles.frozenOverlay}>
+                            <Text style={styles.frozenText}>FROZEN</Text>
+                        </View>
+                    )}
+                </View>
+                <Image
+                    style={styles.visaLogo}
+                    source={require("../../assets/images/VisaLogo.png")}
+                    resizeMode='contain'
+                />
+            </View>
+        )
+    }
+
     return (
-        <View style={{ backgroundColor: 'transparent', width: CARD_WIDTH, height: CARD_HEIGHT + 32, marginTop: -90 }}>
-            {/* A view for the card image : Width is calculated as a percentage of the screen width as per shared design, height is calculated such as to maintain the aspect ratio */}
+        <View style={styles.container}>
             <TouchableOpacity style={styles.hideContainer}
                 onPress={() => setShowCardDetails(prev => !prev)}
             >
@@ -74,46 +113,8 @@ const Card = () => {
                 />
                 <Text style={styles.hideText}>{showCardDetails ? "Hide card number" : "Show card number"} </Text>
             </TouchableOpacity>
-            <View style={[styles.cardContainer, styles.shadow]}>
-                {/* A view for the actual card */}
-                <View style={{ marginTop: 24, height: 21, marginRight: 24, alignItems: 'flex-end' }}>
-                    {/* View For Top Logo */}
-                    <Image
-                        style={{ width: 74 }}
-                        source={require("../../assets/images/AspireLogo.png")}
-                        resizeMode='contain'
-                    />
-                </View>
-                <View style={{ height: CARD_HEIGHT - 89, flexDirection: 'column', alignContent: 'space-between' }}>
-                    {/* Value of 89 is calculated as (margin top + height) of Aspire logo at top; +  (margin bottom + height) of VISA logo at the bottom */}
-                    {/* View for card details like name, number, date */}
-                    <View style={{ flex: 1, justifyContent: 'center', marginLeft: 24 }}>
-                        {/* View for User Name */}
-                        <Text style={{ color: 'white', fontWeight: '700', fontSize: 22 }}>{nameOnCard}</Text>
-                    </View>
-                    <View style={{ flex: 1, marginLeft: 24, alignContent: 'space-between' }}>
-                        {/* View for card number valid thru and cvv */}
-                        <View style={{ height: 17, flex: 1 }}>
-                            {/* View for Card Number */}
-                            {cardNumberDisplayRender(showCardDetails)}
-                        </View>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            {/* View for valid thru and cvv */}
-                            <Text style={{ color: 'white', fontWeight: '400', fontSize: 16 }}>Thru: {cardValidThru}</Text>
-                            <Text style={{ color: 'white', fontWeight: '400', fontSize: 15, marginLeft: 10 }}>CVV: {(showCardDetails) ? userData?.cvv : "* * *"}</Text>
-                        </View>
-                    </View>
-                </View>
-                <View style={{ marginBottom: 24, marginRight: 24, height: 20, alignItems: 'flex-end' }}>
-                    {/* View for bottom VISA logo */}
-                    <Image
-                        style={{ width: 59 }}
-                        source={require("../../assets/images/VisaLogo.png")}
-                        resizeMode='contain'
-                    />
-                </View>
-            </View>
-            <View style={{ backgroundColor: 'white', width: width, height: 85, borderTopRightRadius: 18, borderTopLeftRadius: 18, marginBottom: 0, marginTop: -85, marginLeft: -24, marginRight: -24 }} />
+
+            {renderCard()}
         </View>
     )
 }

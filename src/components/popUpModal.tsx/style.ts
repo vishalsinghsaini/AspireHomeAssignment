@@ -1,5 +1,5 @@
-import { getBottomPadding, screenHeight } from '@assets/constants';
-import { isAndroid, lineHeightScale, normalizedHeight, normalizedWidth } from '@theme/device/normalize';
+import { screenHeight } from '@assets/constants';
+import { isAndroid, moderateScale, normalizedHeight, normalizedWidth } from '@theme/device/normalize';
 import { ThemeProps } from '@theme/theme';
 import { StyleSheet } from 'react-native';
 
@@ -12,16 +12,25 @@ export const createStyleSheet = (theme: ThemeProps) => StyleSheet.create({
         width: '100%',
         flex: 1,
     },
+    list: {
+        bottom: 0,
+        position: 'absolute',
+        width: '100%',
+        backgroundColor: theme.colors.white,
+        marginBottom: normalizedHeight(32),
+        borderTopRightRadius: moderateScale(12),
+        borderTopLeftRadius: moderateScale(12)
+    },
     footer: {
         backgroundColor: theme.colors.white,
         marginTop: -normalizedHeight(1)
     },
-    menuItem: {
+    menuContainer: {
+        marginHorizontal: normalizedWidth(24),
+        marginBottom: normalizedHeight(32),
         flexDirection: 'row',
-        height: 41,
-        marginTop: 22,
         alignContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     menuTitle: {
         height: 19,
@@ -38,7 +47,7 @@ export const createStyleSheet = (theme: ThemeProps) => StyleSheet.create({
         color: 'rgba(34,34,34,0.4)'
     },
     headerContainer: {
-        alignItems: 'center',
+        alignItems: 'center'
     },
     headerHeight: {
         backgroundColor: 'transparent',

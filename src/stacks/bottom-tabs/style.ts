@@ -29,8 +29,6 @@ export const createStyleSheet = (theme: ThemeProps) => StyleSheet.create({
         shadowOpacity: theme.opacity.opacity0p2,
         shadowRadius: theme.borderRadius.radius4,
         elevation: normalizedHeight(20),
-        borderWidth: theme.borderWidth.borderWidth1,
-        borderColor: theme.colors.borderColor,
     },
     icon: {
         width: normalizedWidth(24),

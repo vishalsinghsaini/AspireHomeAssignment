@@ -37,7 +37,7 @@ export default function AppComponent(): React.JSX.Element {
 const createStyleSheet = (theme: ThemeProps) =>
   StyleSheet.create({
     container: {
-      backgroundColor: theme.colors.white,
+      backgroundColor: theme.colors.primaryColor,
       flex: 1
     }
   });
