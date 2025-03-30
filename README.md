@@ -121,6 +121,7 @@ src
 │   └── home
 │       ├── index.tsx
 │       └── style.ts
+|       └── home.test.tsx
 ├── stacks
 │   ├── bottom-tabs
 │   └── home-stack
