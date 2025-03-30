@@ -16,6 +16,10 @@ export const generateRandomExpiry = () => {
     return `${month}/2${year}`;
 };
 
+export const generateRandomCVV = () => {
+    return Math.floor(100 + Math.random() * 900).toString();
+};
+
 export const isValidCardName = (name: string) => {
     const nameRegex = /^[A-Za-z\s]+$/;
     return nameRegex.test(name.trim());

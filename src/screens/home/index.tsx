@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, Modal, TextInput, ActivityIndicator } from 'react-native';
+import { View, Text, Image, TouchableOpacity, Modal, TextInput, ActivityIndicator, Alert } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useAppTheme } from '@app-hooks/use-app-theme';
 import { createStyleSheet } from './style';
@@ -8,7 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StoreType } from '@network/reducers/store';
 import { useFetchCardsData } from '@network/api/hooks/fetch-cards';
 import { setUserData } from '@network/reducers/home-reducer';
-import { generateRandomCardNumber, generateRandomExpiry, isValidCardName } from '@assets/constants';
+import { generateRandomCardNumber, generateRandomCVV, generateRandomExpiry, isValidCardName } from '@assets/constants';
+import { useCreateCard } from '@network/api/hooks/create-card';
 
 export const Home = () => {
     const { theme } = useAppTheme();
@@ -28,14 +29,16 @@ export const Home = () => {
 
     const fetchNewCardData = (trimmedName: string) => {
         const newCard = {
-            id: Date.now().toString(),
             name: trimmedName,
-            number: generateRandomCardNumber(),
+            cardNumber: generateRandomCardNumber(),
             expiry: generateRandomExpiry(),
-            frozen: false,
+            cvv: generateRandomCVV(),
         };
-        // setCards([...cards, newCard]);
-        resetValues()
+        useCreateCard(newCard).then(res => {
+            if (res?.data) {
+                dispatch(setUserData(res?.data))
+            }
+        }).catch(() => Alert.alert('Error creating card. Please try again')).finally(() => resetValues())
     }
 
 
@@ -53,10 +56,12 @@ export const Home = () => {
         }
 
         setIsLoading(true)
+
+        // since there is no delay in api call added here just to show the loading state
         setTimeout(() => {
             setIsLoading(false)
             fetchNewCardData(trimmedName)
-        }, 2000)
+        }, 200)
 
     };
 
