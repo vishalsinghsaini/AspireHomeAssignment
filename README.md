@@ -64,3 +64,66 @@ yarn ios
 If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
 
 This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+
+
+# Screen Recording of IOS and android showing below mentioned points
+1. On initial load show card with already available data by calling a MOCK fetchCard api
+2. Freeze/unfreeze state of card by toggling the button.
+3. Hide the details of the card
+4. open a modal on clicking add to card button. With proper baisc error validation on name and generate expiry , cvv , cardnumber randomaly and finally call the createCard api to append the new card details on top of the first one
+
+# Architecture
+```sh
+src
+├── app-hooks 
+│   └── use-app-theme.tsx  
+├── assets  
+│   ├── constants
+│   │   └── index.ts
+│   └── images
+├── components
+│   ├── card
+│   └── popUpModal.tsx
+├── config
+│   ├── app-navigation
+│   │   ├── constant.tsx
+│   │   └── index.tsx
+│   ├── env
+│   │   ├── env.json
+│   │   ├── env.prod.json
+│   │   └── index.tsx
+│   └── network
+│       ├── api
+│       │   ├── hooks
+│       │   └── services
+│       ├── api-constants.tsx
+│       └── index.tsx
+├── reducers
+│   ├── active-env-reducer.tsx
+│   ├── home-reducer.tsx
+│   ├── root-reducer.tsx
+│   └── store.ts
+├── screens
+│   └── home
+│       ├── index.tsx
+│       └── style.ts
+├── stacks
+│   ├── bottom-tabs
+│   └── home-stack
+├── theme
+│   ├── device
+│   │   ├── device.js
+│   │   └── normalize.tsx
+│   ├── colors.ts
+│   ├── fonts.ts
+│   ├── index.ts
+│   └── theme.d.ts
+└── utils
+```
+# APIs Used 
+(Notes for the evaluator)
+- APIs are at a free host, the operations shoudn't take much time. Kindly check console for logs of API call and response 
+- The APIs are dumb APIs i.e. there is no storage at backend and all the data will be static and are stored in local state managemen using redux. 
+- There is a exhaust limit to around 300 request weekly.
+- All the tabs in tab bar are perfectly functional couldn't have been better we both active and inactive iamges were there to be extracted from illustrator.
+- Some data have been hardcoded as disabled to keep the operation of the App limited to just the shared scope.
