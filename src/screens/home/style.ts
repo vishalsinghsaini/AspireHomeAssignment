@@ -108,6 +108,9 @@ export const createStyleSheet = (theme: ThemeProps) => StyleSheet.create({
     submitButton: {
         backgroundColor: theme.colors.primaryGreen,
         paddingVertical: normalizedHeight(10),
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
         width: '100%',
         borderRadius: moderateScale(8),
         marginBottom: normalizedHeight(10),

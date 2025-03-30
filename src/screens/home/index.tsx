@@ -1,9 +1,9 @@
-import { View, Text, Image, TouchableOpacity, Modal, TextInput } from 'react-native';
+import { View, Text, Image, TouchableOpacity, Modal, TextInput, ActivityIndicator } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useAppTheme } from '@app-hooks/use-app-theme';
 import { createStyleSheet } from './style';
 import PopUpModal from '@components/popUpModal.tsx';
-import { isAndroid } from '@theme/device/normalize';
+import { isAndroid, normalizedWidth } from '@theme/device/normalize';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreType } from '@network/reducers/store';
 import { useFetchCardsData } from '@network/api/hooks/fetch-cards';
@@ -18,6 +18,26 @@ export const Home = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [cardName, setCardName] = useState('');
     const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(false)
+
+    const resetValues = () => {
+        setCardName('');
+        setError('');
+        setModalVisible(false);
+    }
+
+    const fetchNewCardData = (trimmedName: string) => {
+        const newCard = {
+            id: Date.now().toString(),
+            name: trimmedName,
+            number: generateRandomCardNumber(),
+            expiry: generateRandomExpiry(),
+            frozen: false,
+        };
+        // setCards([...cards, newCard]);
+        resetValues()
+    }
+
 
     const handleAddCard = () => {
         const trimmedName = cardName.trim();
@@ -32,17 +52,12 @@ export const Home = () => {
             return;
         }
 
-        const newCard = {
-            id: Date.now().toString(),
-            name: trimmedName,
-            number: generateRandomCardNumber(),
-            expiry: generateRandomExpiry(),
-            frozen: false,
-        };
-        // setCards([...cards, newCard]);
-        setCardName('');
-        setError('');
-        setModalVisible(false);
+        setIsLoading(true)
+        setTimeout(() => {
+            setIsLoading(false)
+            fetchNewCardData(trimmedName)
+        }, 2000)
+
     };
 
     const openModal = () => setModalVisible(true)
@@ -98,22 +113,30 @@ export const Home = () => {
                         <TextInput
                             placeholder="Card Name"
                             value={cardName}
+                            editable={!isLoading}
                             onChangeText={(text) => {
                                 setCardName(text);
                                 if (text.trim()) setError('');
                             }}
-                            style={[styles.input, error && { borderColor: 'red' }]}
+                            style={[styles.input, error && { borderColor: theme.colors.red }, isLoading && { color: theme.colors.blackOverlay }]}
                         />
                         {error ? <Text style={styles.errorText}>{error}</Text> : null}
                         <TouchableOpacity
                             style={styles.submitButton}
                             onPress={handleAddCard}
                         >
+
+                            {isLoading ? <ActivityIndicator
+                                size="small"
+                                color="#000"
+                                style={{ marginRight: normalizedWidth(6), alignSelf: 'center' }}
+                            /> : null}
                             <Text style={styles.submitButtonText}>Submit</Text>
+
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.cancelButton}
-                            onPress={() => setModalVisible(false)}
+                            onPress={resetValues}
                         >
                             <Text>Cancel</Text>
                         </TouchableOpacity>
