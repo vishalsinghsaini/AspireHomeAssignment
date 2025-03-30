@@ -142,3 +142,7 @@ src
 - There is a exhaust limit to around 300 request weekly.
 - All the tabs in tab bar are perfectly functional couldn't have been better we both active and inactive iamges were there to be extracted from illustrator.
 - Some data have been hardcoded as disabled to keep the operation of the App limited to just the shared scope.
+
+# Minimum SDk IOS and Android supported version 
+- current for android it's 24 in build.gradle file. We can update it accordingly
+- similarly for IOS. It's define using min_ios_version_supported in podfile we can update according;ly for e.g. 12.0
