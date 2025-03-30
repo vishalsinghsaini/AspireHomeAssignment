@@ -135,8 +135,6 @@ src
 └── utils
 ```
 # APIs Used 
-<img width="1122" alt="Screenshot 2025-03-30 at 3 12 20 PM" src="https://github.com/user-attachments/assets/fb44ef4b-a312-4c42-96b4-d1e3e4e2689b" />
-
 (Notes for the evaluator)
 
 - APIs are at a free host (https://designer.mocky.io/manage), the operations shoudn't take much time. Kindly check console for logs of API call and response 
