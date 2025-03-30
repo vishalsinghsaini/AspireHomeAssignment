@@ -72,6 +72,16 @@ This is one way to run your app — you can also build it directly from Android 
 3. Hide the details of the card
 4. open a modal on clicking add to card button. With proper baisc error validation on name and generate expiry , cvv , cardnumber randomaly and finally call the createCard api to append the new card details on top of the first one
 
+**Android**
+
+
+
+**IOS**
+
+
+https://github.com/user-attachments/assets/03ad9f28-b41c-48e5-ace0-3451c0de3547
+
+
 # Architecture
 ```sh
 src
