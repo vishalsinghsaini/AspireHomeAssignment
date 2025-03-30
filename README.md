@@ -135,8 +135,11 @@ src
 └── utils
 ```
 # APIs Used 
+<img width="1122" alt="Screenshot 2025-03-30 at 3 12 20 PM" src="https://github.com/user-attachments/assets/fb44ef4b-a312-4c42-96b4-d1e3e4e2689b" />
+
 (Notes for the evaluator)
-- APIs are at a free host, the operations shoudn't take much time. Kindly check console for logs of API call and response 
+
+- APIs are at a free host (https://designer.mocky.io/manage), the operations shoudn't take much time. Kindly check console for logs of API call and response 
 - The APIs are dumb APIs i.e. there is no storage at backend and all the data will be static and are stored in local state managemen using redux. 
 - There is a exhaust limit to around 300 request weekly.
 - All the tabs in tab bar are perfectly functional couldn't have been better we both active and inactive iamges were there to be extracted from illustrator.
