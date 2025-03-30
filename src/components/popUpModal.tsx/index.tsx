@@ -1,6 +1,5 @@
 import { View, Text, FlatList, ListRenderItem, Image, TouchableOpacity } from 'react-native'
 import React, { useMemo, useState } from 'react'
-import { screenWidth } from '@assets/constants'
 import { useAppTheme } from '@app-hooks/use-app-theme'
 import { createStyleSheet } from './style'
 import Card from '@components/card'
@@ -14,13 +13,11 @@ export interface MenuObj {
     itemEnabled: boolean
 }
 
-const CARD_WIDTH = (screenWidth - 48);
-const CARD_HEIGHT = 0.6 * CARD_WIDTH;
-
 const PopUpModal = () => {
     const { theme } = useAppTheme();
     const styles = createStyleSheet(theme);
 
+    // we can fetch this as well from /cards getFetchCards api where iconAssetUri will be a string path
     const [menuArr, setMenuArr] = useState<MenuObj[]>([
         {
             id: 1,

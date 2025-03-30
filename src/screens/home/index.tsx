@@ -61,7 +61,7 @@ export const Home = () => {
         setTimeout(() => {
             setIsLoading(false)
             fetchNewCardData(trimmedName)
-        }, 200)
+        }, 2000)
 
     };
 

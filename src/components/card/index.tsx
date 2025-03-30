@@ -15,6 +15,7 @@ export const CARD_HEIGHT = 0.6 * CARD_WIDTH; // Aspect Ratio of the card is 0.6 
 export interface CardProps {
     isCardFreezed: boolean
 }
+
 const Card = (props: CardProps) => {
     const { isCardFreezed = false } = props
     const { theme } = useAppTheme();

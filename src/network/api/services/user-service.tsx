@@ -33,7 +33,7 @@ export const createNewCard = async (props: createNewCardObj) => {
   // const endPoint = apiConstants.cards;
   // const data = await API.mockService.post(endPoint, bodyParams);   --> // and change api method accordingly
 
-  const data = await API.mockService.get('/1c6b2237-b4ec-4417-ae7a-1e5385abccc3');
+  const data = await API.mockService.get('/d1b1ff76-2c62-4249-bfea-5fdc2e0f30cd');
   // <-- above code is when dev api's are given -->
   try {
     const response = getApiResponse(data);
